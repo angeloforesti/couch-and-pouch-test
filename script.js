@@ -1,7 +1,7 @@
-// Crie uma instância do PouchDB conectada ao CouchDB local
+// Cria uma instância do PouchDB conectada ao CouchDB local
 const db = new PouchDB('test');
 
-// Capture o formulário
+// Captura o formulário
 const form = document.getElementById('myForm');
 
 // Evento de envio do formulário
@@ -21,9 +21,11 @@ form.addEventListener('submit', function(event) {
     message: message
   };
 
-  // Verifica se há conexão com a internet
+  //Returns the online status of the browser. The property returns a boolean value, with true meaning online
   if (navigator.onLine) {
-    // Salva o documento no CouchDB
+    // Salva o documento no CouchDB db.put esta enviando os dados para o couch essa funçao retorna uma promessa
+    //o metodo then é a resposta da promessa 
+    //The catch() method of Promise instances schedules a function to be called when the promise is rejected.
     db.put(formData)
       .then(response => {
         console.log('Documento salvo no CouchDB:', response);
@@ -50,7 +52,7 @@ function syncData() {
   // Verifica se há conexão com a internet
   if (navigator.onLine) {
     // Sincroniza os dados localmente armazenados no PouchDB com o CouchDB
-    db.replicate.to('http://localhost:5984/my_database')
+    db.replicate.to('http://localhost:5984/test')
       .then(response => {
         console.log('Dados sincronizados com o CouchDB:', response);
       })
